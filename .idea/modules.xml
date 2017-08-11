@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ToGIF.iml" filepath="$PROJECT_DIR$/ToGIF.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VideoToGif.iml" filepath="$PROJECT_DIR$/VideoToGif.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
