@@ -1,16 +1,13 @@
 package com.hunfrit.togif.main.presentation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
 
-import com.hunfrit.togif.Constants.Constants;
 import com.hunfrit.togif.GifEncoderLIB.AnimatedGifEncoder;
 import com.hunfrit.togif.main.View.MainView;
 
@@ -22,13 +19,13 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-import static com.hunfrit.togif.Constants.Constants.PathToTheFile;
+import static com.hunfrit.togif.Constants.Constants.PATH_TO_THE_FILE;
 
 /**
  * Created by Artem Shapovalov on 10.08.2017.
  */
 
-public class VideoToGifPresenter extends AsyncTask<Context, Void, Boolean> {
+public class VideoToGifPresenter extends AsyncTask<Context, String, Boolean> {
 
     private MainView view;
 
@@ -36,7 +33,7 @@ public class VideoToGifPresenter extends AsyncTask<Context, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(Context... contexts) {
-        File videoFile = new File(PathToTheFile, "myvideo.avi");
+        File videoFile = new File(PATH_TO_THE_FILE, "myvideo.avi");
 
         if (!checkOnExistingFile(videoFile)){
             return false;
@@ -57,17 +54,18 @@ public class VideoToGifPresenter extends AsyncTask<Context, Void, Boolean> {
 
         Log.d("TAGA", "millis - " + String.valueOf(millis));
 
-        for(int i=0;i<millis*1000;i+=1000000)
+        for(int i=0, k = 1;i<millis*1000;i+=1000000)
         {
             Log.d("TAGA", "millis - " + millis*1000 + " i - " + i);
             Bitmap bitmap = retriever.getFrameAtTime(i);
             rev.add(bitmap);
+
             Log.d("TAGA", "addFrame - " + String.valueOf(rev));
         }
 
         FileOutputStream outStream = null;
         try{
-            outStream = new FileOutputStream(PathToTheFile + "/test.gif");
+            outStream = new FileOutputStream(PATH_TO_THE_FILE + "/test.gif");
             outStream.write(generateGIF(rev));
             outStream.close();
             deleteVideo();
@@ -78,34 +76,42 @@ public class VideoToGifPresenter extends AsyncTask<Context, Void, Boolean> {
     }
 
     @Override
+    protected void onProgressUpdate(String... values) {
+        super.onProgressUpdate(values);
+
+        view.showProgress(values[0]);
+    }
+
+    @Override
     protected void onPostExecute(Boolean check) {
         super.onPostExecute(check);
 
         if (!check){
-            view.NoSuchFile(check);
+            view.noSuchFile(check);
         }
 
+        view.showProgress("END");
+
     }
 
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-    }
 
     public byte[] generateGIF(ArrayList<Bitmap> bitmaps){
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         AnimatedGifEncoder encoder = new AnimatedGifEncoder();
         encoder.start(bos);
+        int k =1;
         for (Bitmap bitmap : bitmaps){
             Log.d("TAGA", String.valueOf(bitmap));
+            publishProgress("Frame - " + k);
             encoder.addFrame(bitmap);
+            k++;
         }
         encoder.finish();
         return bos.toByteArray();
     }
 
     private void deleteVideo(){
-        File deleteFile = new File(PathToTheFile, "myvideo.avi");
+        File deleteFile = new File(PATH_TO_THE_FILE, "myvideo.avi");
         boolean deleted = deleteFile.delete();
         Log.d("TAGA", String.valueOf(deleted));
     }

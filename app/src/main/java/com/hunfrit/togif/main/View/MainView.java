@@ -6,6 +6,8 @@ package com.hunfrit.togif.main.View;
 
 public interface MainView {
 
-    void NoSuchFile(boolean checkFile);
+    void noSuchFile(boolean checkFile);
+
+    void showProgress(String showProgress);
 
 }

@@ -12,5 +12,5 @@ public final class Constants {
 
     public static final int DIALOG = 1010;
 
-    public static final File PathToTheFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+    public static final File PATH_TO_THE_FILE = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 }

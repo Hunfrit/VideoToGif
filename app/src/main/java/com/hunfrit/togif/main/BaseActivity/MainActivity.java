@@ -11,20 +11,27 @@ import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.hunfrit.togif.R;
 import com.hunfrit.togif.main.View.MainView;
 import com.hunfrit.togif.main.presentation.VideoToGifPresenter;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.IOException;
 
 import static com.hunfrit.togif.Constants.Constants.DIALOG;
-import static com.hunfrit.togif.Constants.Constants.PathToTheFile;
+import static com.hunfrit.togif.Constants.Constants.PATH_TO_THE_FILE;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
     private Dialog dialog;
+
+    private TextView tv;
+    private ProgressBar progressBar;
 
     private SurfaceView mSurfaceView;
     private Camera mCamera;
@@ -37,9 +44,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mVideoFIle = new File(PathToTheFile, "myvideo.avi");
+        mVideoFIle = new File(PATH_TO_THE_FILE, "myvideo.avi");
 
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+        tv = (TextView) findViewById(R.id.textView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         final SurfaceHolder holder = mSurfaceView.getHolder();
         holder.addCallback(new SurfaceHolder.Callback() {
@@ -140,13 +149,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void NoSuchFile(boolean checkFile) {
-        if(!checkFile){
-            showDialog(DIALOG);
-        }
-    }
-
-    @Override
     protected Dialog onCreateDialog(int id) {
 
         if (id == DIALOG){
@@ -164,5 +166,21 @@ public class MainActivity extends AppCompatActivity implements MainView {
         });
 
         return dialog;
+    }
+
+    @Override
+    public void noSuchFile(boolean checkFile) {
+        if(!checkFile){
+            showDialog(DIALOG);
+        }
+    }
+
+    @Override
+    public void showProgress(String showProgress) {
+        progressBar.setVisibility(View.VISIBLE);
+        tv.setText(showProgress);
+        if(showProgress == "END"){
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }
