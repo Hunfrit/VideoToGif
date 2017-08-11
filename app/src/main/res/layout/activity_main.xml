@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnStartRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#2df117"
+        android:onClick="onClickStartRecord"
+        android:text="Start"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnStopRecord"
+        android:layout_toStartOf="@+id/btnStopRecord"></Button>
+
+    <Button
+        android:id="@+id/btnStopRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#db1b1b"
+        android:onClick="onClickStopRecord"
+        android:text="Stop"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"></Button>
+
+    <Button
+        android:id="@+id/toGif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VideoTOGif"
+        android:onClick="onClickToGif"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnStopRecord"
+        android:layout_toEndOf="@+id/btnStopRecord" />
+</RelativeLayout>
