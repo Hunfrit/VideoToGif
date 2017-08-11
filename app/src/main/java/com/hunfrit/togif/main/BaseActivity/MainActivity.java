@@ -68,7 +68,9 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
 	@Override
 	public void showProgress(String showProgress){
-		mProgressBar.setVisibility(View.VISIBLE);
+		if(showProgress.contentEquals("START")){
+			mProgressBar.setVisibility(View.VISIBLE);
+		}
 		mProgressTv.setText(showProgress);
 		if(showProgress.contentEquals("END") ) {
 			mProgressBar.setVisibility(View.GONE);
@@ -76,8 +78,10 @@ public class MainActivity extends AppCompatActivity implements MainView{
 	}
 
 	public void onClickToGif(View view){
-		VideoToGifPresenter videoToGif = new VideoToGifPresenter(MainActivity.this);
-		videoToGif.execute(getBaseContext());
+//		VideoToGifPresenter videoToGif = new VideoToGifPresenter(MainActivity.this);
+//		videoToGif.execute(getBaseContext());
+		VideoToGifPresenter toGif = new VideoToGifPresenter(this);
+		toGif.convertToGif(getApplicationContext());
 	}
 
 
