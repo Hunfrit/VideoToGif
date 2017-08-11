@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
-import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-import com.hunfrit.togif.Constants.Constants;
 import com.hunfrit.togif.R;
 import com.hunfrit.togif.main.View.MainView;
 import com.hunfrit.togif.main.presentation.VideoToGifPresenter;
