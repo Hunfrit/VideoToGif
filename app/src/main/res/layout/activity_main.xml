@@ -31,17 +31,11 @@
         android:onClick="onClickStopRecord"
         android:text="Stop"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"></Button>
+        android:layout_alignRight="@+id/surfaceView"
+        android:layout_alignEnd="@+id/surfaceView"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"></Button>
 
-    <Button
-        android:id="@+id/toGif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="VideoTOGif"
-        android:onClick="onClickToGif"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnStopRecord"
-        android:layout_toEndOf="@+id/btnStopRecord" />
 
     <TextView
         android:id="@+id/textView"
@@ -50,7 +44,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="66dp"
-        android:text="TextView" />
+        android:text="" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -61,4 +55,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/Info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Info"
+        android:gravity="center_horizontal"
+        android:layout_above="@+id/btnStartRecord"
+        android:layout_marginBottom="49dp" />
 </RelativeLayout>

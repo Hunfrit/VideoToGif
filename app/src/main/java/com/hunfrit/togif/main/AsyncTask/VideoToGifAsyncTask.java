@@ -1,6 +1,7 @@
 package com.hunfrit.togif.main.AsyncTask;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -9,7 +10,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.hunfrit.togif.GifEncoderLIB.AnimatedGifEncoder;
+import com.hunfrit.togif.main.BaseActivity.MainActivity;
 import com.hunfrit.togif.main.View.MainView;
+import com.hunfrit.togif.main.presentation.VideoToGifPresenter;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -25,7 +28,7 @@ import static com.hunfrit.togif.Constants.Constants.PATH_TO_THE_FILE;
  * Created by Artem Shapovalov on 11.08.2017.
  */
 
-public class VideoToGifAsyncTask extends AsyncTask<Context, String, Boolean> {
+public class VideoToGifAsyncTask extends AsyncTask<Integer, String, Boolean> {
 
     private MainView view;
 
@@ -38,10 +41,11 @@ public class VideoToGifAsyncTask extends AsyncTask<Context, String, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Context... contexts) {
+    protected Boolean doInBackground(Integer... millis) {
         File videoFile = new File(PATH_TO_THE_FILE, "myvideo.avi");
 
         if (!checkOnExistingFile(videoFile)){
+
             return false;
         }
 
@@ -54,18 +58,17 @@ public class VideoToGifAsyncTask extends AsyncTask<Context, String, Boolean> {
         ArrayList<Bitmap> rev = new ArrayList<Bitmap>();
 
         //Create a new Media Player
-        MediaPlayer mp = MediaPlayer.create(contexts[0], videoFileUri);
+//        MediaPlayer mp = MediaPlayer.create(contexts[0], videoFileUri);
+//
+//        int millis = mp.getDuration();
 
-        int millis = mp.getDuration();
+        Log.d("TAGA", "millis - " + String.valueOf(millis[0]));
 
-        Log.d("TAGA", "millis - " + String.valueOf(millis));
-
-        for(int i=0, k = 1;i<millis*1000;i+=1000000)
+        for(int i=0;i<millis[0]*1000;i+=1000000)
         {
-            Log.d("TAGA", "millis - " + millis*1000 + " i - " + i);
+            Log.d("TAGA", "millis - " + millis[0]*1000 + " i - " + i);
             Bitmap bitmap = retriever.getFrameAtTime(i);
             rev.add(bitmap);
-
             Log.d("TAGA", "addFrame - " + String.valueOf(rev));
         }
 

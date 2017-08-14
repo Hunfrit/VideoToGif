@@ -16,8 +16,8 @@ public class VideoToGifPresenter {
 
     public VideoToGifPresenter(MainView view) {this.view = view; }
 
-    public void convertToGif(Context context){
+    public void convertToGif(int millis){
         VideoToGifAsyncTask toGIF = new VideoToGifAsyncTask(view);
-        toGIF.execute(context);
+        toGIF.execute(millis);
     }
 }

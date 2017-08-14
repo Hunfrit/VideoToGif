@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ToGIF</string>
+    <string name="Info">To convert video to GIF, first - start recording the video, after stop recording - video will be convert to GIF</string>
 </resources>

@@ -2,6 +2,8 @@ package com.hunfrit.togif.main.BaseActivity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +17,10 @@ import com.hunfrit.togif.main.View.MainView;
 import com.hunfrit.togif.main.presentation.VideoToGifPresenter;
 import com.hunfrit.togif.utils.CameraHelper;
 
+import java.io.File;
+
 import static com.hunfrit.togif.Constants.Constants.DIALOG;
+import static com.hunfrit.togif.Constants.Constants.PATH_TO_THE_FILE;
 
 public class MainActivity extends AppCompatActivity implements MainView{
 
@@ -71,19 +76,13 @@ public class MainActivity extends AppCompatActivity implements MainView{
 		if(showProgress.contentEquals("START")){
 			mProgressBar.setVisibility(View.VISIBLE);
 		}
+
 		mProgressTv.setText(showProgress);
+
 		if(showProgress.contentEquals("END") ) {
 			mProgressBar.setVisibility(View.GONE);
 		}
 	}
-
-	public void onClickToGif(View view){
-//		VideoToGifPresenter videoToGif = new VideoToGifPresenter(MainActivity.this);
-//		videoToGif.execute(getBaseContext());
-		VideoToGifPresenter toGif = new VideoToGifPresenter(this);
-		toGif.convertToGif(getApplicationContext());
-	}
-
 
 	public void onClickStartRecord(View view){
 		mCameraHelper.startRecording();
@@ -91,6 +90,17 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
 	public void onClickStopRecord(View view){
 		mCameraHelper.stopRecording();
+		VideoToGifPresenter toGif = new VideoToGifPresenter(MainActivity.this);
+		File videoFile = new File(PATH_TO_THE_FILE, "myvideo.avi");
+
+		Uri videoFileUri = Uri.parse(videoFile.toString());
+
+		//Create a new Media Player
+		MediaPlayer mp = MediaPlayer.create(MainActivity.this, videoFileUri);
+
+		int millis = mp.getDuration();
+
+		toGif.convertToGif(millis);
 	}
 
 }
