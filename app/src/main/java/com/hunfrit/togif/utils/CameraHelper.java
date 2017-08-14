@@ -4,6 +4,7 @@ import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.util.Log;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import java.io.File;
@@ -29,9 +30,46 @@ public class CameraHelper implements SurfaceHolder.Callback{
 		this.mSurfaceHolder.addCallback(this);
 	}
 
+    public void setCameraDisplayOrientation(int rotation) {
+
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+        }
+
+        int result = 0;
+
+        Camera.CameraInfo info = new Camera.CameraInfo();
+        Camera.getCameraInfo(0, info);
+
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+            result = ((360 - degrees) + info.orientation);
+        } else
+            // передняя камера
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                result = ((360 - degrees) - info.orientation);
+                result += 360;
+            }
+        result = result % 360;
+		Log.d("TAGA", String.valueOf(result));
+        mCamera.setDisplayOrientation(result);
+    }
+
 	@Override
 	public void surfaceCreated(SurfaceHolder surfaceHolder){
 		this.mCamera = Camera.open();
+		mCamera.setDisplayOrientation(90);
 		try{
 			mCamera.setPreviewDisplay(mSurfaceHolder);
 			mCamera.startPreview();

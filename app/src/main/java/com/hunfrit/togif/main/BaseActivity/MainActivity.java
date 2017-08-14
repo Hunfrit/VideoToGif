@@ -2,11 +2,13 @@ package com.hunfrit.togif.main.BaseActivity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Surface;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ProgressBar;
